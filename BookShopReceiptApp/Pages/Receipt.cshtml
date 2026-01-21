@@ -1,0 +1,30 @@
+﻿@page
+@model BookShop.Pages.ReceiptModel
+
+<div class="receipt">
+    <h1>🧾 Book Shop Receipt</h1>
+
+    <table>
+        <tr>
+            <th>Stationery Item</th>
+            <th>Price (R)</th>
+        </tr>
+
+        @foreach (var item in Model.Items)
+        {
+            <tr>
+                <td>@item.Name</td>
+                <td>R @item.Price</td>
+            </tr>
+        }
+
+        <tr>
+            <td class="total">Total</td>
+            <td class="total">R @Model.Total</td>
+        </tr>
+    </table>
+
+    <p style="text-align:center; margin-top:15px; color:purple;">
+        Thank you for shopping at <strong>Book Shop</strong> 💜
+    </p>
+</div>
