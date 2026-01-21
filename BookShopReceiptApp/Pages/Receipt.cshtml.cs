@@ -7,7 +7,13 @@ namespace BookShop.Pages
     public class ReceiptModel : PageModel
     {
         public List<Item> Items { get; set; }
+
+        public decimal SubTotal { get; set; }
+        public decimal VATAmount { get; set; }
         public decimal Total { get; set; }
+
+        public const decimal VAT_PERCENTAGE = 15;
+        public const decimal DISCOUNT_PERCENTAGE = 10;
 
         public void OnGet()
         {
@@ -20,7 +26,15 @@ namespace BookShop.Pages
                 new Item { Name = "Book Cover", Price = 20 }
             };
 
-            Total = Items.Sum(i => i.Price);
+            foreach (var item in Items)
+            {
+                item.DiscountAmount = item.Price * DISCOUNT_PERCENTAGE / 100;
+                item.PriceAfterDiscount = item.Price - item.DiscountAmount;
+            }
+
+            SubTotal = Items.Sum(i => i.PriceAfterDiscount);
+            VATAmount = SubTotal * VAT_PERCENTAGE / 100;
+            Total = SubTotal + VATAmount;
         }
     }
 
@@ -28,5 +42,7 @@ namespace BookShop.Pages
     {
         public string Name { get; set; }
         public decimal Price { get; set; }
+        public decimal DiscountAmount { get; set; }
+        public decimal PriceAfterDiscount { get; set; }
     }
 }

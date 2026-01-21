@@ -6,8 +6,10 @@
 
     <table>
         <tr>
-            <th>Stationery Item</th>
-            <th>Price (R)</th>
+            <th>Item</th>
+            <th>Original (R)</th>
+            <th>Discount (10%)</th>
+            <th>After Discount (R)</th>
         </tr>
 
         @foreach (var item in Model.Items)
@@ -15,16 +17,21 @@
             <tr>
                 <td>@item.Name</td>
                 <td>R @item.Price</td>
+                <td>-R @item.DiscountAmount</td>
+                <td>R @item.PriceAfterDiscount</td>
             </tr>
         }
-
-        <tr>
-            <td class="total">Total</td>
-            <td class="total">R @Model.Total</td>
-        </tr>
     </table>
 
-    <p style="text-align:center; margin-top:15px; color:purple;">
+    <hr />
+
+    <p><strong>Subtotal:</strong> R @Model.SubTotal</p>
+    <p><strong>VAT (15%):</strong> R @Model.VATAmount</p>
+    <p style="color:purple;font-size:18px;">
+        <strong>Total:</strong> R @Model.Total
+    </p>
+
+    <p style="text-align:center;color:purple;">
         Thank you for shopping at <strong>Book Shop</strong> 💜
     </p>
 </div>
